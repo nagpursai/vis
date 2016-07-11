@@ -1,0 +1,65 @@
+<html>
+<head>
+<link href="../../bower_components/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet">
+<link href="../../assets/css/ticket.css" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="#/" class="navbar-brand">Ticket</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="#/">Home</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<ul class="nav nav-stacked">
+					<li><a href="#view-all">Ticket</a></li>
+					<li><a href="#add">Add New</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9">
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+							<th>Sl No.</th>
+							<th>Ticket</th>
+							<th>Ticket No.</th>
+							<th>Description</th>
+							<th>Remarks</th>
+							<th></th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="ticket in tickets">
+								<td>
+									{{ticket.id}}
+								</td>
+								<td>{{ticket.ticketType}}</td>
+								<td>{{ticket.ticketNumber}}</td>
+								<td>{{ticket.ticketStatus}}</td>
+								<td>{{ticket.remarks}}</td>
+								<td><a href ng-click="editTicket(ticket.id)"><span class="glyphicon glyphicon-edit"></span></a></td>
+								<td><a href ng-click="remove(ticket.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
+							</tr>
+							
+						</tbody>
+						
+					</table>
+					<button class="btn btn-lg btn-primary btn pull-right" type="submit">Add Ticket</button>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
