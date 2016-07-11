@@ -3,7 +3,7 @@
  * @name LoginController
  * @description Handle the login authenticate the login details.
  */
-angular.module('ttsApp').controller('LoginController',['$scope','LoginService','$state', function($scope, LoginService, $state, $stateParams,$location) {
+angular.module('visApp').controller('LoginController',['$scope','LoginService','$state', function($scope, LoginService, $state, $stateParams,$location) {
 	$scope.login = {};
 	$scope.loginService  = new LoginService();
 	/**

@@ -1,3 +1,16 @@
+<html>
+<head>
+<title>Ticket Tracking</title>
+<link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.css" >
+<link rel="stylesheet" href="../../assets/css/sighin.css">
+<link rel="stylesheet" href="../../assets/css/ticket.css">
+<link rel="stylesheet" type="text/css" href="../../bower_components/angular-ui-grid/ui-grid.min.css">
+<link rel="stylesheet" type="text/css" href="../../bower_components/ng-table/dist/ng-table.css">
+
+</head>
+<body>
+
+
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -17,34 +30,142 @@
 				</ul>
 			</div>
 			<div class="col-sm-9">
-				<div class="container" ng-controller="TicketController">
+			<div class="ticket-form-size">
+			<div class="container">
+				<div class="form-group">
+					<label for="inputName3" class="col-sm-4 control-label">Ticket Type</label>
+					<div class="col-sm-8">
+						<!-- <input class="form-control" id="inputName3" ng-model="ticket.ticketType" placeholder="Ticket Type"> -->
+						<select name="singleSelect" ng-model="ticket.ticketType" class="form-control" required="required">
+							<option value="">---Select---</option>
+							<option value="No-Ticket">No-Ticket</option>
+							<option value="jira">Jira</option>
+					    	<option value="zendesk">Zendesk</option>
+					    </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputName3" class="col-sm-4 control-label">Ticket Number</label>
+					<div class="col-sm-8">
+						<input class="form-control" id="inputName3" ng-model="ticket.ticketNumber" placeholder="Ticket Number" type="number">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputName3" class="col-sm-4 control-label">Category</label>
+					<div class="col-sm-8">
+						<select name="Category" ng-model="ticket.catefory" class="form-control" required="required">
+							<option value="">---Select---</option>
+							<option value="TPS">TPS</option>
+					    	<option value="DEV">DEV</option>
+					    </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputName3" class="col-sm-4 control-label">Status</label>
+					<div class="col-sm-8">
+						<select name="Status" ng-model="ticket.ticketType" class="form-control" required="required" >
+							<option value="">---Select---</option>
+							<option value="Done">Done</option>
+					    	<option value="In Progress">In Progress</option>
+					    </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputName3" class="col-sm-4 control-label">Complete Percentage</label>
+					<div class="col-sm-8">
+						<input class="form-control" id="inputName3" ng-model="ticket.percentage" placeholder="Percentage" type="number">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputName3" class="col-sm-4 control-label">Remarks</label>
+					<div class="col-sm-8">
+						<input class="form-control" id="inputName3" ng-model="ticket.remarks" placeholder="Remarks" type="text">
+					</div>
+				</div><br>
+				<button type="button" id="addData" class="btn btn-success btn pull-right" ng-click="addTicket()">Save</button>
+			</div>
+			</div>
+			<br>
+			<div class="container">
 				<table ng-table="ticketList"
 					class="table table-bordered table-hover table-condensed editable-table demoTable"
-					ng-form="tableForm" disable-filter="isAdding">
-					  <colgroup>
-				          <col width="8%" />
-				          <col width="20%" />
-				          <col width="20%" />
-				          <col width="25%" />
-        			  </colgroup>
-        			{{ticketList}}
-        			   <tr ng-repeat="row in $data">
-			        <td data-title="'Id'" filter="{id: 'text'}" sortable="'name'">{{row.id}}</td>
-			        <td data-title="'Ticket Type'" filter="{ticketType: 'text'}" sortable="'age'">{{row.ticketType}}</td>
-			        <td data-title="'Ticket Number'" filter="{ticketNumber: 'number'}" sortable="'money'">{{row.ticketNumber}}</td>
-			        <td data-title="'Status'" filter="{ticketStatus: 'number'}" sortable="'money'">{{row.ticketStatus}}</td>
-			        <td class="editable-input" data-title="'Remarks'" filter="{remarks: 'text'}" sortable="'money'">{{row.remarks}}</td>
-			 <!--        <span ng-switch-default class="editable-text">{{row.INRRate}}</span>
-            <div class="controls" ng-class="inrRate.$invalid && inrRate.$dirty ? 'has-error' : ''" ng-switch-when="true">
-                <input  type="number" name="inrRate" ng-model="row.INRRate" class="editable-input form-control input-sm" required />
-            </div>-->			       <td>
-				            <button class="btn btn-primary btn-sm" ng-click="demo.save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
-				            <button class="btn btn-default btn-sm" ng-click="demo.cancel(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
+					ng-form="tableForm" disable-filter="isAdding"
+					demo-tracked-table="tableTracker">
+						<colgroup>
+							<col width="5%" />
+							<col width="15%" />
+							<col width="15%" />
+							<col width="15%" />
+							<col width="15%" />
+							<col width="10%" />
+							<col width="25%" />
+						</colgroup>
+						<tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
+        			   	  <td title="'ID'" filter="{id: 'number'}" sortable="'id'" id="" ng-switch="row.isEditing" ng-class="ticketType.$dirty ? 'bg-warning' : ''" ng-form="id" demo-tracked-table-cell>
+	        			    <span ng-switch-default class="editable-text">{{row.id}}</span>
+	        			    	<div class="controls" ng-class="id.$invalid && id.$dirty ? 'has-error' : ''" ng-switch-when="true">
+	             					<input type="number" name="ticketId" ng-model="row.id" class="editable-input form-control input-sm" required />
+	             				</div>
+             			</td>
+        			    <td title="'Ticket'" filter="{ticketType: 'text'}" sortable="'ticketType'" ng-switch="row.isEditing" ng-class="ticketType.$dirty ? 'bg-warning' : ''" ng-form="ticketType" demo-tracked-table-cell>
+	        			    <span ng-switch-default class="editable-text">{{row.ticketType}}</span>
+	        			    	<div class="controls" ng-class="name.$invalid && ticketType.$dirty ? 'has-error' : ''" ng-switch-when="true">
+	             					<!-- <input type="text" name="ticketType" ng-model="row.ticketType" class="editable-input form-control input-sm" required /> -->
+	             						<select name="ticketType" ng-model="row.ticketType" class="editable-input form-control input-sm" required="required">
+											<option value="">---Select---</option>
+											<option value="No-Ticket">No-Ticket</option>
+											<option value="jira">Jira</option>
+									    	<option value="zendesk">Zendesk</option>
+									    </select>
+	             				</div>
+             			</td>
+             			
+             			 <td title="'Ticket Number'" filter="{ticketNumber: 'number'}" sortable="'ticketNumber'" ng-switch="row.isEditing" ng-class="ticketNumber.$dirty ? 'bg-warning' : ''" ng-form="ticketNumber" demo-tracked-table-cell>
+	        			    <span ng-switch-default class="editable-text">{{row.ticketNumber}}</span>
+	        			    	<div class="controls" ng-class="ticketNumber.$invalid && ticketNumber.$dirty ? 'has-error' : ''" ng-switch-when="true">
+	             					<input type="number" name="ticketNumber" ng-model="row.ticketNumber" class="editable-input form-control input-sm" required />
+	             				</div>
+             			</td>
+             			 <td title="'Category'" filter="{category: 'text'}" sortable="'category'" ng-switch="row.isEditing" ng-class="category.$dirty ? 'bg-warning' : ''" ng-form="category" demo-tracked-table-cell>
+				            <span ng-switch-default class="editable-text">{{row.category}}</span>
+				            <div class="controls" ng-class="category.$invalid && category.$dirty ? 'has-error' : ''" ng-switch-when="true">
+				              <select name="Category" ng-model="ticket.catefory" class="editable-input form-control input-sm" required="required">
+									<option value="">---Select---</option>
+									<option value="TPS">TPS</option>
+							    	<option value="DEV">DEV</option>
+							   </select>
+				            </div>
+				          </td>
+				         <td title="'Status'" filter="{ticketStatus: 'text'}" sortable="'ticketStatus'" ng-switch="row.isEditing" ng-class="ticketStatus.$dirty ? 'bg-warning' : ''" ng-form="ticketStatus" demo-tracked-table-cell>
+				            <span ng-switch-default class="editable-text">{{row.ticketStatus}}</span>
+				            <div class="controls" ng-class="ticketStatus.$invalid && ticketStatus.$dirty ? 'has-error' : ''" ng-switch-when="true">
+				              <select name="Status" ng-model="row.ticketStatus" class="editable-input form-control input-sm" required="required" >
+									<option value="">---Select---</option>
+									<option value="Done">Done</option>
+							    	<option value="In Progress">In Progress</option>
+							    </select>
+				            </div>
+				          </td>
+				           <td title="'Percentage'" filter="{percentage: 'text'}" sortable="'ticketStatus'" ng-switch="row.isEditing" ng-class="percentage.$dirty ? 'bg-warning' : ''" ng-form="percentage" demo-tracked-table-cell>
+				            <span ng-switch-default class="editable-text">{{row.percentage}}</span>
+				            <div class="controls" ng-class="percentage.$invalid && percentage.$dirty ? 'has-error' : ''" ng-switch-when="true">
+				              <input type="number" name="percentage" ng-model="row.percentage" class="editable-input form-control input-sm" required/>
+				            </div>
+				          </td>
+				         <td title="'Remarks'" filter="{remarks: 'textg'}" sortable="'remarks'" ng-switch="row.isEditing" ng-class="remarks.$dirty ? 'bg-warning' : ''" ng-form="remarks" demo-tracked-table-cell>
+				            <span ng-switch-default class="editable-text">{{row.remarks}}</span>
+				            <div class="controls" ng-class="remarks.$invalid && remarks.$dirty ? 'has-error' : ''" ng-switch-when="true">
+				              <input type="text" name="remarks" ng-model="row.remarks" class="editable-input form-control input-sm" required/>
+				            </div>
+				          </td>
+				          <td>
+				            <button class="btn btn-primary btn-sm" ng-click="updateTicket(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="glyphicon glyphicon-ok"></span></button>
+				            <button class="btn btn-default btn-sm" ng-click="cancelTicket(row, rowForm)" ng-if="row.isEditing"><span class="glyphicon glyphicon-remove"></span></button>
 				            <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="glyphicon glyphicon-pencil"></span></button>
-				            <button class="btn btn-danger btn-sm" ng-click="demo.del(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
+				            <button class="btn btn-danger btn-sm" ng-click="deleteTicket(row)" ng-if="!row.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
 				          </td>
 				        </tr>
-            		
+            		</div>
 				</table>
 			</div>
 				
@@ -52,4 +173,5 @@
 		</div>
 
 	</div>
-
+</body>
+</html>

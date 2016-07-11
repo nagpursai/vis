@@ -10,7 +10,7 @@ import com.vis.rest.user.model.LoginBean;
 import com.vis.rest.user.model.User;
 import com.vis.rest.user.repository.UserRepository;
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/user")
 public class LoginController {
 	@Autowired
 	UserRepository userRepository;

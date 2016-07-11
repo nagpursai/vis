@@ -1,7 +1,7 @@
 /**
  * http://usejsdoc.org/
  */
-angular.module('ttsApp').factory('UrlFactory',['$q',function($q){
+angular.module('visApp').factory('UrlFactory',['$q',function($q){
 	console.log("In service");
 	var url = "http://localhost:7000/ttsrest/user/login";
 	function LoginService(login){

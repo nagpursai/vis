@@ -1,10 +1,9 @@
 /**
  * New node file
  */
-angular.module('ttsApp').factory('LoginService',
+angular.module('visApp').factory('LoginService',
 		[ '$q', 'Restangular','$timeout', function($q, Restangular, $timeout) {
-			//var baseUrl = "http://localhost:7000/ttsrest/user/login";
-			var baseUrl = "/ttsrest/user/login";
+			var baseUrl = "/visrest/user/login";
 			function LoginService(login) {
 				if (login) {
 					this.setData = login;
@@ -15,7 +14,7 @@ angular.module('ttsApp').factory('LoginService',
 					angular.extend(this, login);
 				},
 				doLogin : function(loginInfo, callback) {
-					Restangular.setBaseUrl("http://localhost:7000/ttsrest/user");
+					Restangular.setBaseUrl("http://localhost:8000/visrest/user");
 					var result;
 					$timeout(function() {
 						Restangular.all('login').post(loginInfo).then(function(ticket){
