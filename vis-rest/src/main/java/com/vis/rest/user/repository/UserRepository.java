@@ -2,6 +2,7 @@ package com.vis.rest.user.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -11,5 +12,9 @@ public interface UserRepository extends CrudRepository<User, Long>{
 	 User findByEmail(String email);
 	 User findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 	 List<User> findAll();
-	 //User findOne(long id);
+	 long count();
+	// User findOne(ID id);
+	 //Custome query
+	/* @Query("SELECT u FROM User u where email = ?1 and password = ?2")
+	 User getUserDetails(String email, String password);*/
 }
