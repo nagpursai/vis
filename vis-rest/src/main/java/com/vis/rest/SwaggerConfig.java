@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableWebMvc
+//I'm Ajay testing conflict
 public class SwaggerConfig{
 	/*@Bean
 	public Docket api() {                
