@@ -16,3 +16,7 @@ public class VisRestApplicationTests {
 	}
 
 }
+@Test
+public void testRest(){
+
+}
