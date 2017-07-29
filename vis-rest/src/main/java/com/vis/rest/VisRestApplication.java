@@ -10,6 +10,7 @@ public class VisRestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(VisRestApplication.class, args);
+		System.out.println("Hello VIS");
 	}
 	
 }

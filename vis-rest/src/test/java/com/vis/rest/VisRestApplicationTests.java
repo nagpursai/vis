@@ -15,8 +15,5 @@ public class VisRestApplicationTests {
 	public void contextLoads() {
 	}
 
-}
-@Test
-public void testRest(){
 
 }
