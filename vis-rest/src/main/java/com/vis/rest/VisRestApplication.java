@@ -12,6 +12,7 @@ public class VisRestApplication {
 		SpringApplication.run(VisRestApplication.class, args);
 		System.out.println("Hello VIS");
 		System.out.println("Hello Hi");
+		System.out.println("Testing conflict");
 	}
 	
 }
